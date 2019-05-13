@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using HomeSwapApp.API.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace HomeSwapApp.API.Controllers
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class ValuesController : ControllerBase
-    {
+        [Authorize]
+        [Route("api/[controller]")]
+        [ApiController]
+        public class ValuesController : ControllerBase
+        {
         private readonly DataContext _context;
         public ValuesController(DataContext context)
         {
@@ -27,6 +29,7 @@ namespace HomeSwapApp.API.Controllers
         }
 
         // GET api/values/5
+        [AllowAnonymous]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetValueAsync(int id)
         {
